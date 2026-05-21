@@ -22,20 +22,20 @@ import type { Database } from "@/types/supabase";
 // Environment validation
 // ---------------------------------------------------------------------------
 
-function getEnvVar(key: string): string {
-  const value = process.env[key];
-  if (!value) {
-    throw new Error(
-      `[Dripit] Missing required environment variable: "${key}". ` +
-        `Ensure it is set in your .env.local file and exposed to the browser ` +
-        `with the NEXT_PUBLIC_ prefix.`
-    );
-  }
-  return value;
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!SUPABASE_URL) {
+  throw new Error(
+    "[Dripit] Missing NEXT_PUBLIC_SUPABASE_URL in .env.local"
+  );
 }
 
-const SUPABASE_URL = getEnvVar("NEXT_PUBLIC_SUPABASE_URL");
-const SUPABASE_ANON_KEY = getEnvVar("NEXT_PUBLIC_SUPABASE_ANON_KEY");
+if (!SUPABASE_ANON_KEY) {
+  throw new Error(
+    "[Dripit] Missing NEXT_PUBLIC_SUPABASE_ANON_KEY in .env.local"
+  );
+}
 
 // ---------------------------------------------------------------------------
 // Singleton
@@ -64,8 +64,8 @@ export function createBrowserClient(): SupabaseClient<Database> {
   if (browserClient) return browserClient;
 
   browserClient = createSupabaseBrowserClient<Database>(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
+    SUPABASE_URL!,
+    SUPABASE_ANON_KEY!
   );
 
   return browserClient;
