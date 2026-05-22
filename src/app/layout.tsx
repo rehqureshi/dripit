@@ -16,19 +16,24 @@
  */
 
 import type { Metadata } from "next";
+
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Toaster } from "@/components/ui/sonner";
-import { Providers } from "@/components/shared/providers";
+
 import "@/app/globals.css";
+
+import { ReactQueryProvider } from "@/lib/react-query/provider";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: {
     template: "%s — Dripit",
     default: "Dripit — Independent Fashion Marketplace",
   },
+
   description:
     "Discover and shop independent fashion designers. Minimal. Editorial. Exclusive.",
+
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_APP_URL ?? "https://dripit.com"
   ),
@@ -45,11 +50,17 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
-      <body className="min-h-screen bg-background font-sans antialiased">
-        <Providers>
+      <body className="min-h-screen bg-background text-foreground antialiased">
+        <ReactQueryProvider>
           {children}
-          <Toaster position="bottom-right" />
-        </Providers>
+
+          {/* Global Toasts */}
+          <Toaster
+            richColors
+            position="top-right"
+            closeButton
+          />
+        </ReactQueryProvider>
       </body>
     </html>
   );
