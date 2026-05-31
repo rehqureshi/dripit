@@ -14,6 +14,8 @@
  * - Navigation (lives in (public) and (protected) layouts respectively)
  * - Page-specific metadata (lives in each page.tsx)
  */
+// src/app/(public)/layout.tsx
+
 
 import type { Metadata } from "next";
 

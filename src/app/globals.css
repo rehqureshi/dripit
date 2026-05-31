@@ -43,6 +43,9 @@
     --input: 240 6% 90%;
     --ring: 270 34% 47%;
 
+    /* Brand */
+    --brand-purple: 270 34% 47%;
+
     /* Radius */
     --radius: 0.75rem;
 
@@ -86,6 +89,10 @@
     --input: 258 22% 25%;
     --ring: 270 44% 62%;
 
+    /* Brand */
+    --brand-purple: 270 44% 62%;
+
+    /* Sidebar */
     --sidebar-background: 258 14% 9%;
     --sidebar-foreground: 240 5% 96%;
     --sidebar-primary: 270 34% 47%;
@@ -123,6 +130,7 @@
 
   body {
     min-height: 100vh;
+    overflow-x: hidden;
 
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
@@ -141,6 +149,7 @@
 
   :focus-visible {
     outline: none;
+
     box-shadow:
       0 0 0 2px hsl(var(--ring)),
       0 0 0 4px hsl(var(--background));
@@ -204,6 +213,63 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+}
+
+/* ==========================================================================
+   BRAND UTILITIES
+   ========================================================================== */
+
+@layer utilities {
+  .bg-brand-purple {
+    background-color: hsl(var(--brand-purple));
+  }
+
+  .text-brand-purple {
+    color: hsl(var(--brand-purple));
+  }
+
+  .border-brand-purple {
+    border-color: hsl(var(--brand-purple));
+  }
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+
+@layer utilities {
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.8s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    display: inline-flex;
+    min-width: max-content;
+    animation: marquee 22s linear infinite;
   }
 }
 

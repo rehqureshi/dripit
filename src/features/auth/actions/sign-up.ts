@@ -60,5 +60,5 @@ export async function signUp(input: SignUpInput): Promise<ActionResult<void>> {
   }
 
   // 3. Redirect OUTSIDE try/catch (Next.js redirect throws internally)
-  redirect("/sign-up/check-email");
+  redirect("/signup/check-email");
 }

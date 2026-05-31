@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
   // If no code, redirect to sign-in with an error hint
   if (!code) {
     return NextResponse.redirect(
-      `${origin}/sign-in?error=missing_code`
+      `${origin}/login?error=missing_code`
     );
   }
 
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
     if (error) {
       console.error("[Dripit Auth] Code exchange failed:", error.message);
       return NextResponse.redirect(
-        `${origin}/sign-in?error=exchange_failed`
+        `${origin}/login?error=exchange_failed`
       );
     }
 
@@ -54,6 +54,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(`${origin}${safeNext}`);
   } catch (err) {
     console.error("[Dripit Auth] Callback error:", err);
-    return NextResponse.redirect(`${origin}/sign-in?error=unknown`);
+    return NextResponse.redirect(`${origin}/login?error=unknown`);
   }
 }
